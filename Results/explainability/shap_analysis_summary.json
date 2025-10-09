@@ -1,0 +1,127 @@
+{
+  "model": "Hybrid Fusion (Feature-based Meta-Learner)",
+  "total_features": 102,
+  "test_samples": 12064,
+  "base_value": -0.8924484400795161,
+  "top_20_features": [
+    {
+      "rank": 1,
+      "feature": "pred_fnn",
+      "importance": 0.8083832093522089
+    },
+    {
+      "rank": 2,
+      "feature": "fraud_feature_categorical_critical_v35",
+      "importance": 0.18517936274713678
+    },
+    {
+      "rank": 3,
+      "feature": "fraud_feature_discrete_critical_v148",
+      "importance": 0.1640153673440043
+    },
+    {
+      "rank": 4,
+      "feature": "fraud_feature_categorical_critical_v36",
+      "importance": 0.14377854026462308
+    },
+    {
+      "rank": 5,
+      "feature": "fraud_feature_categorical_high_v53",
+      "importance": 0.13962428582488903
+    },
+    {
+      "rank": 6,
+      "feature": "fraud_feature_discrete_critical_v149",
+      "importance": 0.12039694233727843
+    },
+    {
+      "rank": 7,
+      "feature": "fraud_feature_discrete_critical_v155",
+      "importance": 0.10833695938920407
+    },
+    {
+      "rank": 8,
+      "feature": "identity_id_17",
+      "importance": 0.10374239985446404
+    },
+    {
+      "rank": 9,
+      "feature": "fraud_feature_discrete_critical_v189",
+      "importance": 0.1031871574515148
+    },
+    {
+      "rank": 10,
+      "feature": "fraud_feature_discrete_critical_v153",
+      "importance": 0.091770533224085
+    },
+    {
+      "rank": 11,
+      "feature": "fraud_feature_discrete_medium_v191",
+      "importance": 0.08254725933569405
+    },
+    {
+      "rank": 12,
+      "feature": "email_match_flag",
+      "importance": 0.08128074376882427
+    },
+    {
+      "rank": 13,
+      "feature": "email_domain_risk",
+      "importance": 0.0801124229147472
+    },
+    {
+      "rank": 14,
+      "feature": "fraud_feature_discrete_medium_v256",
+      "importance": 0.06372727912757316
+    },
+    {
+      "rank": 15,
+      "feature": "fraud_feature_discrete_high_v124",
+      "importance": 0.06289434940266407
+    },
+    {
+      "rank": 16,
+      "feature": "fraud_feature_discrete_medium_v139",
+      "importance": 0.061669427680761224
+    },
+    {
+      "rank": 17,
+      "feature": "fraud_feature_discrete_critical_v123",
+      "importance": 0.059794939490994486
+    },
+    {
+      "rank": 18,
+      "feature": "fraud_feature_discrete_medium_v254",
+      "importance": 0.057274277210471604
+    },
+    {
+      "rank": 19,
+      "feature": "fraud_feature_discrete_critical_v200",
+      "importance": 0.056540004542888864
+    },
+    {
+      "rank": 20,
+      "feature": "fraud_feature_discrete_critical_v87",
+      "importance": 0.055536140085247085
+    }
+  ],
+  "model_performance": {
+    "test_f1": 0.6185567010309279,
+    "test_roc_auc": 0.8633498144488143,
+    "threshold": 0.8000000000000002
+  },
+  "shap_analysis": {
+    "total_shap_values_calculated": 12064,
+    "features_analyzed": 102,
+    "base_model_predictions": 10,
+    "raw_features": 92
+  },
+  "generated_at": "2025-10-09",
+  "visualizations_created": [
+    "shap_summary_plot.png",
+    "shap_feature_importance.png",
+    "waterfall plots (6)",
+    "dependence plots (5)",
+    "force plots (2)"
+  ]
+}

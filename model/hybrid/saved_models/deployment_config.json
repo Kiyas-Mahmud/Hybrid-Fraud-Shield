@@ -1,0 +1,62 @@
+{
+  "model_info": {
+    "type": "Hybrid ML+DL Fusion Ensemble",
+    "version": "1.0",
+    "created_date": "2025-10-09 22:08:52",
+    "description": "Combines 5 ML models and 8 DL models using meta-learner"
+  },
+  "base_models": {
+    "ml_models": {
+      "count": 5,
+      "models": [
+        "Logistic Regression",
+        "Random Forest",
+        "XGBoost",
+        "XGBoost SMOTE",
+        "CatBoost"
+      ],
+      "data_type": "scaled for LR, unscaled for tree-based"
+    },
+    "dl_models": {
+      "count": 8,
+      "models": [
+        "FNN",
+        "FNN Tuned",
+        "CNN",
+        "CNN Tuned",
+        "LSTM",
+        "BiLSTM",
+        "CNN-BiLSTM",
+        "Autoencoder"
+      ],
+      "data_type": "scaled (StandardScaler)",
+      "special_handling": {
+        "Autoencoder": "Uses reconstruction error as anomaly score"
+      }
+    }
+  },
+  "meta_learner": {
+    "algorithm": "Logistic Regression",
+    "best_params": {
+      "C": 0.1,
+      "class_weight": null,
+      "max_iter": 1000,
+      "penalty": "l2",
+      "solver": "lbfgs"
+    },
+    "cv_f1_score": 0.9102655932698756
+  },
+  "performance": {
+    "optimal_threshold": 0.3999999999999998,
+    "test_f1_score": 0.6326086956521739,
+    "test_roc_auc": 0.874528028657513,
+    "test_precision": 0.7480719794344473,
+    "test_recall": 0.5480225988700564
+  },
+  "deployment_files": [
+    "meta_model.pkl",
+    "fusion_calibrator.pkl",
+    "best_threshold.json",
+    "deployment_config.json"
+  ]
+}

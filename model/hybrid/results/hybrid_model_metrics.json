@@ -1,0 +1,73 @@
+{
+  "model_info": {
+    "model_type": "Hybrid ML+DL Fusion Ensemble",
+    "base_models": [
+      "Logistic Regression",
+      "Random Forest",
+      "XGBoost",
+      "XGBoost SMOTE",
+      "CatBoost",
+      "FNN",
+      "FNN Tuned",
+      "CNN",
+      "CNN Tuned",
+      "LSTM",
+      "BiLSTM",
+      "CNN-BiLSTM",
+      "Autoencoder"
+    ],
+    "meta_learner": "Logistic Regression",
+    "total_base_models": 13,
+    "evaluation_date": "2025-10-09 22:08:07"
+  },
+  "test_results": {
+    "default_threshold": {
+      "threshold": "default_0.5",
+      "accuracy": 0.9180205570291777,
+      "precision": 0.7954990215264188,
+      "recall": 0.5103578154425612,
+      "f1_score": 0.6217973231357553,
+      "roc_auc": 0.874528028657513,
+      "pr_auc": 0.690858893751495,
+      "specificity": 0.9800401107821602,
+      "confusion_matrix": [
+        [
+          10262,
+          209
+        ],
+        [
+          780,
+          813
+        ]
+      ],
+      "tp": 813,
+      "tn": 10262,
+      "fp": 209,
+      "fn": 780
+    },
+    "optimal_threshold": {
+      "threshold": "optimal_0.400",
+      "accuracy": 0.915948275862069,
+      "precision": 0.7480719794344473,
+      "recall": 0.5480225988700564,
+      "f1_score": 0.6326086956521739,
+      "roc_auc": 0.874528028657513,
+      "pr_auc": 0.690858893751495,
+      "specificity": 0.9719224524878235,
+      "confusion_matrix": [
+        [
+          10177,
+          294
+        ],
+        [
+          720,
+          873
+        ]
+      ],
+      "tp": 873,
+      "tn": 10177,
+      "fp": 294,
+      "fn": 720
+    }
+  }
+}
