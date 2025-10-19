@@ -13,30 +13,30 @@ API_BASE = "http://127.0.0.1:8000"
 def test_health_endpoint():
     """Test the health endpoint"""
     try:
-        print("🏥 Testing /health endpoint...")
+        print("Testing /health endpoint...")
         response = requests.get(f"{API_BASE}/health", timeout=10)
         
         if response.status_code == 200:
             data = response.json()
-            print("✅ Health endpoint working!")
+            print("PASS: Health endpoint working!")
             print(f"   Status: {data.get('status', 'N/A')}")
             print(f"   Models Ready: {data.get('models_loaded', 'N/A')}")
             print(f"   Total Models: {data.get('total_models', 'N/A')}")
             return True
         else:
-            print(f"❌ Health endpoint failed with status: {response.status_code}")
+            print(f"FAIL: Health endpoint failed with status: {response.status_code}")
             return False
     except requests.exceptions.ConnectionError:
-        print("❌ Cannot connect to API server. Is it running?")
+        print("FAIL: Cannot connect to API server. Is it running?")
         return False
     except Exception as e:
-        print(f"❌ Error testing health endpoint: {e}")
+        print(f"FAIL: Error testing health endpoint: {e}")
         return False
 
 def test_prediction_endpoint():
     """Test the prediction endpoint with sample data"""
     try:
-        print("\n🔮 Testing /predict endpoint...")
+        print("\nTesting /predict endpoint...")
         
         # Load fraud sample
         fraud_sample_path = Path("../sample_requests/fraud_sample.json")
@@ -49,12 +49,12 @@ def test_prediction_endpoint():
             
             if response.status_code == 200:
                 result = response.json()
-                print("✅ Fraud prediction successful!")
+                print("PASS: Fraud prediction successful!")
                 print(f"   Prediction: {'FRAUD' if result.get('is_fraud', False) else 'LEGITIMATE'}")
                 print(f"   Confidence: {result.get('fraud_probability', 0):.4f}")
                 print(f"   Processing Time: {result.get('processing_time_ms', 0):.1f}ms")
             else:
-                print(f"❌ Fraud prediction failed: {response.status_code}")
+                print(f"FAIL: Fraud prediction failed: {response.status_code}")
                 print(f"   Error: {response.text}")
                 return False
         
@@ -69,44 +69,44 @@ def test_prediction_endpoint():
             
             if response.status_code == 200:
                 result = response.json()
-                print("✅ Safe prediction successful!")
+                print("PASS: Safe prediction successful!")
                 print(f"   Prediction: {'FRAUD' if result.get('is_fraud', False) else 'LEGITIMATE'}")
                 print(f"   Confidence: {result.get('fraud_probability', 0):.4f}")
                 print(f"   Processing Time: {result.get('processing_time_ms', 0):.1f}ms")
             else:
-                print(f"❌ Safe prediction failed: {response.status_code}")
+                print(f"FAIL: Safe prediction failed: {response.status_code}")
                 print(f"   Error: {response.text}")
                 return False
                 
         return True
         
     except Exception as e:
-        print(f"❌ Error testing prediction endpoint: {e}")
+        print(f"FAIL: Error testing prediction endpoint: {e}")
         return False
 
 def test_info_endpoint():
     """Test the info endpoint"""
     try:
-        print("\n📊 Testing /info endpoint...")
+        print("\nTesting /info endpoint...")
         response = requests.get(f"{API_BASE}/info", timeout=10)
         
         if response.status_code == 200:
             data = response.json()
-            print("✅ Info endpoint working!")
+            print("PASS: Info endpoint working!")
             print(f"   API Version: {data.get('version', 'N/A')}")
             print(f"   ML Models: {len(data.get('models', {}).get('ml_models', []))}")
             print(f"   DL Models: {len(data.get('models', {}).get('dl_models', []))}")
             return True
         else:
-            print(f"❌ Info endpoint failed with status: {response.status_code}")
+            print(f"FAIL: Info endpoint failed with status: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Error testing info endpoint: {e}")
+        print(f"FAIL: Error testing info endpoint: {e}")
         return False
 
 def main():
     """Main test function"""
-    print("🚀 Starting Fusion API Tests...")
+    print("Starting Fusion API Tests...")
     print("=" * 50)
     
     # Wait a moment for server to start
@@ -129,13 +129,13 @@ def main():
         success_count += 1
     
     print("\n" + "=" * 50)
-    print(f"🎯 Test Results: {success_count}/{total_tests} passed")
+    print(f"Test Results: {success_count}/{total_tests} passed")
     
     if success_count == total_tests:
-        print("🎉 All tests passed! API is working correctly.")
+        print("All tests passed! API is working correctly.")
         return 0
     else:
-        print("⚠️ Some tests failed. Check the API server and try again.")
+        print("Some tests failed. Check the API server and try again.")
         return 1
 
 if __name__ == "__main__":

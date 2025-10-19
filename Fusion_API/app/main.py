@@ -1,17 +1,11 @@
 """
 Main FastAPI Application for Hybrid Fraud Detection API
 
-This is the main FastAPI application that provides endpoints for fraud detection
-using the trained hybrid ML+DL ensemble model.
-
 Endpoints:
 - GET /health: Health check
 - POST /predict: Fraud prediction
 - POST /explain: Prediction explanation  
 - GET /info: API and model information
-
-Author: Fraud Detection Team
-Date: October 2025
 """
 
 import logging
@@ -29,6 +23,7 @@ from pydantic import BaseModel, Field, validator
 from model_loader import initialize_models, get_models
 from preprocessing import create_preprocessor, validate_and_preprocess
 from inference import create_inference_engine
+from explainability import initialize_explainer, get_explanation, is_explainer_ready
 
 # Configure logging
 logging.basicConfig(
@@ -39,24 +34,20 @@ logger = logging.getLogger(__name__)
 
 # Pydantic models for request/response
 class TransactionRequest(BaseModel):
-    """
-    Request model for transaction prediction
-    Expecting 63 features as per the trained model
-    """
-    # Dynamic field creation for 63 features
+    """Request model for transaction prediction expecting 63 features"""
+    
     def __init__(self, **data):
         super().__init__(**data)
     
     @validator('*', pre=True)
     def validate_numeric_fields(cls, v):
-        """Ensure all fields are numeric"""
         try:
             return float(v)
         except (ValueError, TypeError):
             raise ValueError(f"All features must be numeric, got: {type(v)}")
     
     class Config:
-        extra = "forbid"  # Don't allow extra fields
+        extra = "forbid"
         schema_extra = {
             "example": {f"feature_{i}": 0.5 for i in range(63)}
         }
@@ -95,27 +86,26 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify allowed origins
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Global variables for models and components
 models_initialized = False
 preprocessor = None
 inference_engine = None
 model_info = None
+explainer_ready = False
 
 @app.on_event("startup")
 async def startup_event():
     """Initialize models on startup"""
-    global models_initialized, preprocessor, inference_engine, model_info
+    global models_initialized, preprocessor, inference_engine, model_info, explainer_ready
     
-    logger.info("🚀 Starting Hybrid Fraud Detection API...")
+    logger.info("Starting Hybrid Fraud Detection API...")
     
     try:
         # Initialize models
@@ -123,7 +113,7 @@ async def startup_event():
         result = initialize_models()
         
         if not result["ready"]:
-            logger.error("❌ Model initialization failed")
+            logger.error("Model initialization failed")
             return
         
         # Get loaded models
@@ -131,26 +121,46 @@ async def startup_event():
         
         # Create preprocessor
         preprocessor = create_preprocessor(scalers)
-        logger.info("✅ Preprocessor created")
+        logger.info("Preprocessor created")
         
         # Create inference engine
         inference_engine = create_inference_engine(ml_models, dl_models, hybrid_models, scalers)
-        logger.info("✅ Inference engine created")
+        logger.info("Inference engine created")
         
-        # Store model info
+        try:
+            import json
+            try:
+                with open('../../actual_features.json', 'r') as f:
+                    feature_names = json.load(f)
+            except:
+                feature_names = [f"feature_{i}" for i in range(63)]
+            
+            all_models = {**ml_models, **dl_models}
+            if hybrid_models:
+                all_models.update(hybrid_models)
+            
+            explainer_ready = initialize_explainer(all_models, feature_names)
+            if explainer_ready:
+                logger.info("Explainer initialized successfully")
+            else:
+                logger.warning("Explainer initialization failed, basic explanations will be used")
+                
+        except Exception as e:
+            logger.warning(f"Explainer initialization error: {e}")
+            explainer_ready = False
+        
         model_info = result
         models_initialized = True
         
-        logger.info("🎉 Hybrid Fraud Detection API is ready!")
-        logger.info(f"📊 Loaded {len(ml_models)} ML + {len(dl_models)} DL models")
+        logger.info("Hybrid Fraud Detection API is ready!")
+        logger.info(f"Loaded {len(ml_models)} ML + {len(dl_models)} DL models")
         
     except Exception as e:
-        logger.error(f"❌ Startup failed: {str(e)}")
+        logger.error(f"Startup failed: {str(e)}")
         logger.error(traceback.format_exc())
 
 @app.get("/", response_model=Dict[str, str])
 async def root():
-    """Root endpoint"""
     return {
         "message": "Hybrid Fraud Detection API", 
         "version": "1.0.0",
@@ -160,10 +170,6 @@ async def root():
 
 @app.get("/health", response_model=HealthResponse)
 async def health_check():
-    """
-    Health check endpoint
-    Returns the status of the API and loaded models
-    """
     try:
         if not models_initialized:
             return HealthResponse(
@@ -172,13 +178,16 @@ async def health_check():
                 models_loaded={}
             )
         
-        # Get inference engine info
         engine_info = inference_engine.get_engine_info() if inference_engine else {}
         
         return HealthResponse(
             status="Healthy" if models_initialized else "Unhealthy",
             message="API is running and models are loaded" if models_initialized else "Models not loaded",
-            models_loaded=engine_info
+            models_loaded={
+                **engine_info,
+                "explainer_ready": explainer_ready,
+                "explainability_available": is_explainer_ready()
+            }
         )
         
     except Exception as e:
@@ -187,32 +196,20 @@ async def health_check():
 
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_fraud(transaction: Dict[str, float]):
-    """
-    Predict if a transaction is fraudulent
-    
-    Args:
-        transaction: Dictionary with 63 numeric features
-        
-    Returns:
-        PredictionResponse: Prediction results
-    """
     try:
         if not models_initialized:
             raise HTTPException(status_code=503, detail="Models not initialized")
         
-        # Validate and preprocess data
         success, preprocessed_data = validate_and_preprocess(transaction, preprocessor)
         
         if not success:
             raise HTTPException(status_code=400, detail=preprocessed_data["error"])
         
-        # Make prediction
         result = inference_engine.predict(preprocessed_data)
         
         if "error" in result:
             raise HTTPException(status_code=500, detail=result["error"])
         
-        # Create response
         response = PredictionResponse(
             status=result["status"],
             probability=result["probability"],
@@ -234,36 +231,23 @@ async def predict_fraud(transaction: Dict[str, float]):
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
 @app.post("/explain", response_model=ExplanationResponse)
-async def explain_prediction(transaction: Dict[str, float]):
-    """
-    Get prediction explanation
-    
-    Args:
-        transaction: Dictionary with 63 numeric features
-        
-    Returns:
-        ExplanationResponse: Prediction with explanation
-    """
+async def explain_prediction_endpoint(transaction: Dict[str, float]):
     try:
         if not models_initialized:
             raise HTTPException(status_code=503, detail="Models not initialized")
         
-        # Validate and preprocess data
         success, preprocessed_data = validate_and_preprocess(transaction, preprocessor)
         
         if not success:
             raise HTTPException(status_code=400, detail=preprocessed_data["error"])
         
-        # Make prediction
         prediction_result = inference_engine.predict(preprocessed_data)
         
         if "error" in prediction_result:
             raise HTTPException(status_code=500, detail=prediction_result["error"])
         
-        # Get explanation
-        explanation = inference_engine.get_feature_importance(preprocessed_data)
+        explanation_data = get_explanation(transaction, prediction_result)
         
-        # Create prediction response
         prediction_response = PredictionResponse(
             status=prediction_result["status"],
             probability=prediction_result["probability"],
@@ -277,7 +261,7 @@ async def explain_prediction(transaction: Dict[str, float]):
         
         return ExplanationResponse(
             prediction=prediction_response,
-            explanation=explanation
+            explanation=explanation_data
         )
         
     except HTTPException:
@@ -289,20 +273,11 @@ async def explain_prediction(transaction: Dict[str, float]):
 
 @app.get("/info", response_model=Dict[str, Any])
 async def get_api_info():
-    """
-    Get API and model information
-    
-    Returns:
-        Dict: API and model information
-    """
     try:
         if not models_initialized:
             return {"status": "Models not initialized"}
         
-        # Get preprocessor info
         preprocessor_info = preprocessor.get_feature_info() if preprocessor else {}
-        
-        # Get inference engine info
         engine_info = inference_engine.get_engine_info() if inference_engine else {}
         
         return {
@@ -314,11 +289,21 @@ async def get_api_info():
             },
             "model_info": engine_info,
             "preprocessing_info": preprocessor_info,
+            "explainability_info": {
+                "enabled": explainer_ready,
+                "methods": ["SHAP Values", "Feature Importance", "Risk Factor Analysis"],
+                "features": [
+                    "Real-time explanations",
+                    "Feature contribution analysis", 
+                    "Risk factor identification",
+                    "Actionable recommendations"
+                ]
+            },
             "endpoints": {
-                "/health": "Health check",
-                "/predict": "Fraud prediction", 
-                "/explain": "Prediction with explanation",
-                "/info": "API information",
+                "/health": "Health check and system status",
+                "/predict": "Fraud prediction with probability scores", 
+                "/explain": "Prediction with detailed SHAP-based explanation",
+                "/info": "API and model information",
                 "/docs": "Interactive API documentation"
             }
         }
@@ -329,7 +314,6 @@ async def get_api_info():
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
-    """Global exception handler"""
     logger.error(f"Unhandled exception: {str(exc)}")
     logger.error(traceback.format_exc())
     return JSONResponse(
@@ -341,12 +325,11 @@ async def global_exception_handler(request, exc):
         }
     )
 
-# For development/testing
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
+        host="127.0.0.1",
+        port=8001,
+        reload=False,
         log_level="info"
     )

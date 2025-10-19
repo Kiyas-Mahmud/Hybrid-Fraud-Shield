@@ -1,0 +1,48 @@
+# Data folders - exclude large datasets
+data/
+datasets/
+*.csv
+*.parquet
+*.pkl
+*.h5
+
+# Model artifacts - exclude large model files (optional)
+# Uncomment if model files are too large
+# model/artifacts/
+# *.joblib
+# *.model
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
