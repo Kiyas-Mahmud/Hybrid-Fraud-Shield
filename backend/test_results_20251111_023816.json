@@ -1,0 +1,109 @@
+{
+  "timestamp": "2025-11-11T02:38:16.896308",
+  "total_tests": 20,
+  "passed": 19,
+  "failed": 1,
+  "pass_rate": 95.0,
+  "results": [
+    {
+      "test": "User Registration",
+      "status": "PASS",
+      "message": "User created: testuser_1762807088 (ID: 7)"
+    },
+    {
+      "test": "Admin Login",
+      "status": "PASS",
+      "message": "Token: eyJhbGciOiJIUzI1NiIs..."
+    },
+    {
+      "test": "User Login",
+      "status": "PASS",
+      "message": "Token: eyJhbGciOiJIUzI1NiIs..."
+    },
+    {
+      "test": "Invalid Login (Should Fail)",
+      "status": "PASS",
+      "message": "Correctly rejected invalid credentials"
+    },
+    {
+      "test": "Submit SAFE Transaction",
+      "status": "PASS",
+      "message": "Classification: SAFE, Risk: 0.00"
+    },
+    {
+      "test": "Submit SUSPICIOUS Transaction",
+      "status": "PASS",
+      "message": "Classification: SUSPICIOUS, Status: PENDING, Risk: 1.00"
+    },
+    {
+      "test": "Submit FRAUD Transaction",
+      "status": "PASS",
+      "message": "Classification: FRAUD, Status: BLOCKED, Risk: 1.00"
+    },
+    {
+      "test": "Submit Transaction (No Card Data)",
+      "status": "PASS",
+      "message": "Backward compatibility working"
+    },
+    {
+      "test": "View My Transactions",
+      "status": "PASS",
+      "message": "Retrieved 4 transactions"
+    },
+    {
+      "test": "Unauthorized Access (Should Fail)",
+      "status": "PASS",
+      "message": "Correctly blocked unauthorized access"
+    },
+    {
+      "test": "View Notifications",
+      "status": "PASS",
+      "message": "Retrieved 2 notifications"
+    },
+    {
+      "test": "Mark Notification Read",
+      "status": "PASS",
+      "message": "Notification 60 marked as read"
+    },
+    {
+      "test": "Respond YES to Transaction",
+      "status": "FAIL",
+      "message": "Error: {'detail': [{'type': 'missing', 'loc': ['body', 'response'], 'msg': 'Field required', 'input': {'user_response': 'YES'}}]}"
+    },
+    {
+      "test": "Admin: View All Users",
+      "status": "PASS",
+      "message": "Retrieved 7 users"
+    },
+    {
+      "test": "Admin: View All Transactions",
+      "status": "PASS",
+      "message": "Retrieved 83 transactions"
+    },
+    {
+      "test": "Admin: Filter Transactions (PENDING)",
+      "status": "PASS",
+      "message": "Retrieved 83 pending transactions"
+    },
+    {
+      "test": "Admin: View Statistics",
+      "status": "PASS",
+      "message": "Total Users: None, Total Transactions: None"
+    },
+    {
+      "test": "Admin: Block User",
+      "status": "PASS",
+      "message": "User 7 blocked"
+    },
+    {
+      "test": "Admin: Unblock User",
+      "status": "PASS",
+      "message": "User 7 unblocked"
+    },
+    {
+      "test": "Non-Admin Access (Should Fail)",
+      "status": "PASS",
+      "message": "Correctly blocked non-admin from admin endpoint"
+    }
+  ]
+}

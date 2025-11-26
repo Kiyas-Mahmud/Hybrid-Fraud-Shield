@@ -1,0 +1,74 @@
+
+================================================================================
+SHAP EXPLAINABILITY ANALYSIS - SUMMARY REPORT
+================================================================================
+
+Analysis Date: 2025-11-08 00:13:51
+Model: Hybrid Fusion Meta-Learner
+Model Type: Logistic Regression
+
+BASE MODELS
+--------------------------------------------------------------------------------
+Total Base Models: 11
+  - ML Models: 5
+  - DL Models: 6
+
+DATA SUMMARY
+--------------------------------------------------------------------------------
+Test Samples: 118,108
+Fraud Cases: 4,132
+Fraud Rate: 3.50%
+
+MODEL PERFORMANCE
+--------------------------------------------------------------------------------
+F1-Score: 0.7529
+ROC-AUC: 0.9777
+Accuracy: 0.9804
+Precision: 0.6745
+Recall: 0.8519
+Optimal Threshold: 0.8900
+
+SHAP ANALYSIS RESULTS
+--------------------------------------------------------------------------------
+Base Value (Expected): -2.5042
+Mean |SHAP|: 0.3012
+SHAP Range: [-2.3892, 34.1644]
+
+TOP 5 MOST IMPORTANT BASE MODELS
+--------------------------------------------------------------------------------
+1. XGBoost                        Importance: 0.979752 (29.57%)
+2. LSTM                           Importance: 0.583029 (17.60%)
+3. BiLSTM                         Importance: 0.491908 (14.85%)
+4. Logistic Regression            Importance: 0.278991 (8.42%)
+5. CatBoost                       Importance: 0.262456 (7.92%)
+
+--------------------------------------------------------------------------------
+Top 3 models contribute: 62.02% of total
+
+KEY INSIGHTS
+--------------------------------------------------------------------------------
+1. Most Important Model: XGBoost
+   - Contributes 29.57% of total importance
+
+2. Least Important Model: LightGBM
+   - Contributes 0.10% of total importance
+
+3. Model Diversity:
+   - The ensemble leverages 11 diverse models
+   - No single model dominates the predictions
+   - Complementary strengths improve robustness
+
+VISUALIZATIONS CREATED
+--------------------------------------------------------------------------------
+  - shap_summary_plot.png
+  - shap_feature_importance.png
+  - feature_importance_rankings.csv
+  - waterfall plots (5)
+  - dependence plots (5)
+  - force plots (3)
+  - model_contribution_heatmap.png
+  - model_contribution_analysis.csv
+
+--------------------------------------------------------------------------------
+All results saved to: explainability_results/
+================================================================================

@@ -1,0 +1,90 @@
+{
+  "optimization_date": "2025-10-31T14:24:47.630766",
+  "dataset": {
+    "n_train_samples": 472432,
+    "n_val_samples": 118108,
+    "n_train_samples_smote": 911804,
+    "n_features": 62,
+    "fraud_rate_train": 0.03498916246147594,
+    "fraud_rate_val": 0.0349933958749619
+  },
+  "models": {
+    "XGBoost": {
+      "hyperparameters": {
+        "n_estimators": 500,
+        "max_depth": 12,
+        "learning_rate": 0.1,
+        "subsample": 0.9,
+        "colsample_bytree": 0.7,
+        "scale_pos_weight": 27.58
+      },
+      "optimal_threshold": 0.8500000000000002,
+      "roc_auc": 0.9413514887503134,
+      "f1_score": 0.7039866648145576
+    },
+    "CatBoost": {
+      "hyperparameters": {
+        "iterations": 500,
+        "depth": 10,
+        "learning_rate": 0.03,
+        "l2_leaf_reg": 5,
+        "auto_class_weights": "Balanced"
+      },
+      "optimal_threshold": 0.7500000000000002,
+      "roc_auc": 0.9098329916119261,
+      "f1_score": 0.5322539193009509
+    },
+    "RandomForest": {
+      "hyperparameters": {
+        "n_estimators": 500,
+        "max_depth": 20,
+        "min_samples_split": 5,
+        "class_weight": "balanced"
+      },
+      "uses_smote": true,
+      "optimal_threshold": 0.5500000000000002,
+      "roc_auc": 0.8758881385636301,
+      "f1_score": 0.562624254473161
+    },
+    "LogisticRegression": {
+      "hyperparameters": {
+        "C": 0.01,
+        "penalty": "l2",
+        "class_weight": "balanced",
+        "solver": "saga",
+        "max_iter": 3000
+      },
+      "requires_scaling": true,
+      "optimal_threshold": 0.8500000000000002,
+      "roc_auc": 0.7768734553078764,
+      "f1_score": 0.3535596275157705
+    },
+    "IsolationForest": {
+      "hyperparameters": {
+        "n_estimators": 300,
+        "contamination": 0.035,
+        "max_features": 0.8
+      },
+      "is_anomaly_detector": true,
+      "roc_auc": 0.7350837929054167,
+      "f1_score": 0.2850574712643678
+    }
+  },
+  "optimization_techniques": [
+    "Hyperparameter tuning for all models",
+    "Threshold optimization (0.1-0.9 range)",
+    "SMOTE for Random Forest only",
+    "Proper class imbalance handling per model",
+    "Same 62 features for all models"
+  ],
+  "best_models": {
+    "best_roc_auc": {
+      "model": "XGBoost (Baseline)",
+      "score": 0.9425
+    },
+    "best_f1_score": {
+      "model": "XGBoost (Optimized + Threshold)",
+      "score": 0.7039866648145576
+    }
+  }
+}

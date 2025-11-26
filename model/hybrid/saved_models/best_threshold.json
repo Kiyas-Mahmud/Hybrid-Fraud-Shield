@@ -1,8 +1,8 @@
 {
-  "best_threshold": 0.3999999999999998,
-  "best_f1_score": 0.623718887262079,
-  "best_precision": 0.7473684210526316,
-  "best_recall": 0.535175879396985,
-  "best_accuracy": 0.9147807344773273,
-  "optimization_date": "2025-10-09 22:07:09"
+  "best_threshold": 0.5299999999999998,
+  "best_f1_score": 0.950916784203103,
+  "best_precision": 0.9405691964285714,
+  "best_recall": 0.9614945807187678,
+  "best_accuracy": 0.9958495336688691,
+  "optimization_date": "2025-11-07 16:27:33"
 }

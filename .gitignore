@@ -1,10 +1,15 @@
 # Data folders - exclude large datasets
 data/
+data_old/
 datasets/
+Results/
 *.csv
 *.parquet
 *.pkl
 *.h5
+
+# Markdown files
+*.md
 
 # Model artifacts - exclude large model files (optional)
 # Uncomment if model files are too large

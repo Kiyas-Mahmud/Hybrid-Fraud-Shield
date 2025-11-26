@@ -1,0 +1,51 @@
+{
+    "timestamp": "20251107_044405",
+    "model_type": "TUNED/OPTIMIZED MODELS ONLY",
+    "note": "Baseline models not saved - only hyperparameter-tuned models for optimal performance",
+    "dataset": {
+        "file": "train_72_features.csv",
+        "total_samples": 419227,
+        "train_samples": 251535,
+        "val_samples": 83846,
+        "test_samples": 83846,
+        "features": 71,
+        "fraud_rate": 0.0418,
+        "imbalance_ratio": 22.92
+    },
+    "training_config": {
+        "baseline_epochs": 50,
+        "tuning_epochs": 30,
+        "batch_size": 512,
+        "optimizer": "adam",
+        "loss": "binary_crossentropy",
+        "callbacks": [
+            "EarlyStopping(patience=10)",
+            "ReduceLROnPlateau(patience=5)"
+        ],
+        "class_weights": {
+            "0": 1.0,
+            "1": 22.92
+        }
+    },
+    "hyperparameter_tuning": {
+        "fnn": "Tested 3 configs: Deeper (256-128-64-32-16), Lower dropout (0.2), Lower LR (0.0005)",
+        "cnn": "Tested 3 configs: More filters (128-64), 3 Conv layers, Larger kernel (size=5)",
+        "lstm": "Tested 2 configs: Larger units (128-64), 3 LSTM layers (64-32-16)",
+        "bilstm": "Tested 2 configs: Larger units (128-64), Lower dropout (0.2)",
+        "hybrid": "Tested 2 configs: Deeper architecture, Larger BiLSTM units (64)",
+        "autoencoder": "Tested 3 configs: Deeper (128-64-32-16), Smaller bottleneck (8 dim), With BatchNorm"
+    },
+    "best_tuned_model": {
+        "name": "FNN_Tuned",
+        "f1_score": 0.5107573902396362,
+        "precision": 0.6603346901854364,
+        "recall": 0.41642897889332575,
+        "roc_auc": 0.8499352864416362,
+        "threshold": 0.8233165740966797
+    },
+    "performance_notes": {
+        "smote_analysis": "SMOTE decreased performance by 4-10% - not used",
+        "threshold_optimization": "All models use optimal thresholds for F1-score maximization",
+        "conclusion": "Deep learning models perform better with real data + class weights + hyperparameter tuning"
+    }
+}

@@ -2,8 +2,8 @@
   "model_info": {
     "type": "Hybrid ML+DL Fusion Ensemble",
     "version": "1.0",
-    "created_date": "2025-10-09 22:08:52",
-    "description": "Combines 5 ML models and 8 DL models using meta-learner"
+    "created_date": "2025-11-07 16:27:34",
+    "description": "Combines 5 ML models and 6 DL models using meta-learner"
   },
   "base_models": {
     "ml_models": {
@@ -12,21 +12,19 @@
         "Logistic Regression",
         "Random Forest",
         "XGBoost",
-        "XGBoost SMOTE",
-        "CatBoost"
+        "CatBoost",
+        "LightGBM"
       ],
       "data_type": "scaled for LR, unscaled for tree-based"
     },
     "dl_models": {
-      "count": 8,
+      "count": 6,
       "models": [
         "FNN",
-        "FNN Tuned",
         "CNN",
-        "CNN Tuned",
         "LSTM",
         "BiLSTM",
-        "CNN-BiLSTM",
+        "Hybrid",
         "Autoencoder"
       ],
       "data_type": "scaled (StandardScaler)",
@@ -38,20 +36,20 @@
   "meta_learner": {
     "algorithm": "Logistic Regression",
     "best_params": {
-      "C": 0.1,
+      "C": 10.0,
       "class_weight": null,
       "max_iter": 1000,
       "penalty": "l2",
-      "solver": "lbfgs"
+      "solver": "liblinear"
     },
-    "cv_f1_score": 0.9102655932698756
+    "cv_f1_score": 0.9957957291657683
   },
   "performance": {
-    "optimal_threshold": 0.3999999999999998,
-    "test_f1_score": 0.6326086956521739,
-    "test_roc_auc": 0.874528028657513,
-    "test_precision": 0.7480719794344473,
-    "test_recall": 0.5480225988700564
+    "optimal_threshold": 0.5299999999999998,
+    "test_f1_score": 0.631883072739633,
+    "test_roc_auc": 0.8721241288272702,
+    "test_precision": 0.7817493692178301,
+    "test_recall": 0.5302338847689675
   },
   "deployment_files": [
     "meta_model.pkl",

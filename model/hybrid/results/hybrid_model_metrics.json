@@ -5,69 +5,67 @@
       "Logistic Regression",
       "Random Forest",
       "XGBoost",
-      "XGBoost SMOTE",
       "CatBoost",
+      "LightGBM",
       "FNN",
-      "FNN Tuned",
       "CNN",
-      "CNN Tuned",
       "LSTM",
       "BiLSTM",
-      "CNN-BiLSTM",
+      "Hybrid",
       "Autoencoder"
     ],
     "meta_learner": "Logistic Regression",
-    "total_base_models": 13,
-    "evaluation_date": "2025-10-09 22:08:07"
+    "total_base_models": 11,
+    "evaluation_date": "2025-11-07 16:27:33"
   },
   "test_results": {
     "default_threshold": {
       "threshold": "default_0.5",
-      "accuracy": 0.9180205570291777,
-      "precision": 0.7954990215264188,
-      "recall": 0.5103578154425612,
-      "f1_score": 0.6217973231357553,
-      "roc_auc": 0.874528028657513,
-      "pr_auc": 0.690858893751495,
-      "specificity": 0.9800401107821602,
+      "accuracy": 0.9741072919399852,
+      "precision": 0.7775467775467776,
+      "recall": 0.5333713633770679,
+      "f1_score": 0.6327186601251903,
+      "roc_auc": 0.8721241288272702,
+      "pr_auc": 0.660673813814872,
+      "specificity": 0.9933408015932288,
       "confusion_matrix": [
         [
-          10262,
-          209
+          79805,
+          535
         ],
         [
-          780,
-          813
+          1636,
+          1870
         ]
       ],
-      "tp": 813,
-      "tn": 10262,
-      "fp": 209,
-      "fn": 780
+      "tp": 1870,
+      "tn": 79805,
+      "fp": 535,
+      "fn": 1636
     },
     "optimal_threshold": {
-      "threshold": "optimal_0.400",
-      "accuracy": 0.915948275862069,
-      "precision": 0.7480719794344473,
-      "recall": 0.5480225988700564,
-      "f1_score": 0.6326086956521739,
-      "roc_auc": 0.874528028657513,
-      "pr_auc": 0.690858893751495,
-      "specificity": 0.9719224524878235,
+      "threshold": "optimal_0.530",
+      "accuracy": 0.9741669250769267,
+      "precision": 0.7817493692178301,
+      "recall": 0.5302338847689675,
+      "f1_score": 0.631883072739633,
+      "roc_auc": 0.8721241288272702,
+      "pr_auc": 0.660673813814872,
+      "specificity": 0.9935399551904406,
       "confusion_matrix": [
         [
-          10177,
-          294
+          79821,
+          519
         ],
         [
-          720,
-          873
+          1647,
+          1859
         ]
       ],
-      "tp": 873,
-      "tn": 10177,
-      "fp": 294,
-      "fn": 720
+      "tp": 1859,
+      "tn": 79821,
+      "fp": 519,
+      "fn": 1647
     }
   }
 }

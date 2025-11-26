@@ -1,0 +1,39 @@
+
+================================================================================
+META-LEARNER TRAINING SUMMARY
+================================================================================
+
+Training Date: 2025-11-07 22:34:09
+
+Base Models:
+  - ML Models: Logistic Regression, Random Forest, XGBoost, CatBoost, LightGBM
+  - DL Models: FNN, CNN, LSTM, BiLSTM, Hybrid, Autoencoder
+  - Total: 11 models
+
+Meta-Learner Configuration:
+  - Algorithm: Logistic Regression
+  - Solver: liblinear
+  - C (Regularization): 100
+  - Penalty: l2
+  - Max Iterations: 500
+
+Optimal Threshold: 0.8900
+
+Validation Performance:
+  - F1-Score: 0.7573
+  - Precision: 0.6789
+  - Recall: 0.8563
+
+Test Performance:
+  - Accuracy: 0.9804
+  - Precision: 0.6745
+  - Recall: 0.8519
+  - F1-Score: 0.7529
+  - ROC-AUC: 0.9777
+
+Dataset Sizes:
+  - Train: 354,324 samples
+  - Validation: 118,108 samples
+  - Test: 118,108 samples
+
+================================================================================

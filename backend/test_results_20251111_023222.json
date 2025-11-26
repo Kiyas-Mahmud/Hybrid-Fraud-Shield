@@ -1,0 +1,109 @@
+{
+  "timestamp": "2025-11-11T02:32:22.668943",
+  "total_tests": 20,
+  "passed": 12,
+  "failed": 8,
+  "pass_rate": 60.0,
+  "results": [
+    {
+      "test": "User Registration",
+      "status": "PASS",
+      "message": "User created: testuser_1762806737"
+    },
+    {
+      "test": "Admin Login",
+      "status": "PASS",
+      "message": "Token: eyJhbGciOiJIUzI1NiIs..."
+    },
+    {
+      "test": "User Login",
+      "status": "PASS",
+      "message": "Token: eyJhbGciOiJIUzI1NiIs..."
+    },
+    {
+      "test": "Invalid Login (Should Fail)",
+      "status": "PASS",
+      "message": "Correctly rejected invalid credentials"
+    },
+    {
+      "test": "Submit SAFE Transaction",
+      "status": "PASS",
+      "message": "Classification: SAFE, Risk: 0.00"
+    },
+    {
+      "test": "Submit SUSPICIOUS Transaction",
+      "status": "PASS",
+      "message": "Classification: SUSPICIOUS, Status: PENDING, Risk: 1.00"
+    },
+    {
+      "test": "Submit FRAUD Transaction",
+      "status": "PASS",
+      "message": "Classification: FRAUD, Status: BLOCKED, Risk: 1.00"
+    },
+    {
+      "test": "Submit Transaction (No Card Data)",
+      "status": "PASS",
+      "message": "Backward compatibility working"
+    },
+    {
+      "test": "View My Transactions",
+      "status": "FAIL",
+      "message": "Error: {'detail': [{'type': 'int_parsing', 'loc': ['path', 'transaction_id'], 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'my-transactions'}]}"
+    },
+    {
+      "test": "Unauthorized Access (Should Fail)",
+      "status": "FAIL",
+      "message": "Should have blocked unauthorized access"
+    },
+    {
+      "test": "View Notifications",
+      "status": "FAIL",
+      "message": "Error: {'detail': 'Not Found'}"
+    },
+    {
+      "test": "Mark Notification Read",
+      "status": "FAIL",
+      "message": "No notification ID available"
+    },
+    {
+      "test": "Respond YES to Transaction",
+      "status": "FAIL",
+      "message": "Error: {'detail': 'Method Not Allowed'}"
+    },
+    {
+      "test": "Admin: View All Users",
+      "status": "PASS",
+      "message": "Retrieved 6 users"
+    },
+    {
+      "test": "Admin: View All Transactions",
+      "status": "PASS",
+      "message": "Retrieved 79 transactions"
+    },
+    {
+      "test": "Admin: Filter Transactions (PENDING)",
+      "status": "PASS",
+      "message": "Retrieved 79 pending transactions"
+    },
+    {
+      "test": "Admin: View Statistics",
+      "status": "FAIL",
+      "message": "Error: {'detail': 'Not Found'}"
+    },
+    {
+      "test": "Admin: Block User",
+      "status": "FAIL",
+      "message": "No user ID available"
+    },
+    {
+      "test": "Admin: Unblock User",
+      "status": "FAIL",
+      "message": "No user ID available"
+    },
+    {
+      "test": "Non-Admin Access (Should Fail)",
+      "status": "PASS",
+      "message": "Correctly blocked non-admin from admin endpoint"
+    }
+  ]
+}

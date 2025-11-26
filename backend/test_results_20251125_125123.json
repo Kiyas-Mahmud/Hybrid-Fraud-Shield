@@ -1,0 +1,109 @@
+{
+  "timestamp": "2025-11-25T12:51:23.300580",
+  "total_tests": 20,
+  "passed": 4,
+  "failed": 16,
+  "pass_rate": 20.0,
+  "results": [
+    {
+      "test": "User Registration",
+      "status": "FAIL",
+      "message": "Status: None, Error: None"
+    },
+    {
+      "test": "Admin Login",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "User Login",
+      "status": "FAIL",
+      "message": "No user data available"
+    },
+    {
+      "test": "Invalid Login (Should Fail)",
+      "status": "FAIL",
+      "message": "Should have rejected invalid credentials"
+    },
+    {
+      "test": "Submit SAFE Transaction",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Submit SUSPICIOUS Transaction",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Submit FRAUD Transaction",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Submit Transaction (No Card Data)",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "View My Transactions",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Unauthorized Access (Should Fail)",
+      "status": "FAIL",
+      "message": "Should have blocked unauthorized access, got status None"
+    },
+    {
+      "test": "View Notifications",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Mark Notification Read",
+      "status": "PASS",
+      "message": "No notifications to mark (skipped)"
+    },
+    {
+      "test": "Respond to Transaction",
+      "status": "PASS",
+      "message": "No pending transaction to respond to (skipped)"
+    },
+    {
+      "test": "Admin: View All Users",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Admin: View All Transactions",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Admin: Filter Transactions",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Admin: View Statistics",
+      "status": "FAIL",
+      "message": "Error: None"
+    },
+    {
+      "test": "Admin: Block User",
+      "status": "PASS",
+      "message": "No test user available (skipped)"
+    },
+    {
+      "test": "Admin: Unblock User",
+      "status": "PASS",
+      "message": "No test user available (skipped)"
+    },
+    {
+      "test": "Non-Admin Access (Should Fail)",
+      "status": "FAIL",
+      "message": "Should have blocked non-admin access"
+    }
+  ]
+}

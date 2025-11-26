@@ -1,0 +1,111 @@
+{
+  "analysis_info": {
+    "model": "Hybrid Fusion Meta-Learner",
+    "model_type": "Logistic Regression",
+    "analysis_date": "2025-11-08 00:13:51",
+    "total_base_models": 11,
+    "ml_models": 5,
+    "dl_models": 6
+  },
+  "data_summary": {
+    "test_samples": 118108,
+    "fraud_cases": 4132,
+    "fraud_rate": 3.4984929047989977
+  },
+  "model_performance": {
+    "test_f1": 0.7528606566142658,
+    "test_roc_auc": 0.9776777427064518,
+    "test_accuracy": 0.9804331628678836,
+    "test_precision": 0.6744587085648591,
+    "test_recall": 0.8518877057115198,
+    "optimal_threshold": 0.8899999999999996
+  },
+  "shap_analysis": {
+    "base_value": -2.504162404398424,
+    "shap_values_shape": [
+      118108,
+      11
+    ],
+    "mean_abs_shap": 0.3011773469625519,
+    "max_shap": 34.16440248054483,
+    "min_shap": -2.3891950252406864
+  },
+  "feature_importance": [
+    {
+      "rank": 1,
+      "base_model": "XGBoost",
+      "importance": 0.9797517875442475,
+      "importance_pct": 29.573387647006243
+    },
+    {
+      "rank": 2,
+      "base_model": "LSTM",
+      "importance": 0.5830292556305915,
+      "importance_pct": 17.59848811251114
+    },
+    {
+      "rank": 3,
+      "base_model": "BiLSTM",
+      "importance": 0.4919079911855789,
+      "importance_pct": 14.848031812684258
+    },
+    {
+      "rank": 4,
+      "base_model": "Logistic Regression",
+      "importance": 0.2789914807613868,
+      "importance_pct": 8.421238231623189
+    },
+    {
+      "rank": 5,
+      "base_model": "CatBoost",
+      "importance": 0.26245600409640296,
+      "importance_pct": 7.922121957931768
+    },
+    {
+      "rank": 6,
+      "base_model": "Hybrid",
+      "importance": 0.20027866090997304,
+      "importance_pct": 6.045325511841905
+    },
+    {
+      "rank": 7,
+      "base_model": "Random Forest",
+      "importance": 0.18793870858406087,
+      "importance_pct": 5.672849341530967
+    },
+    {
+      "rank": 8,
+      "base_model": "CNN",
+      "importance": 0.18439638277676815,
+      "importance_pct": 5.56592575577907
+    },
+    {
+      "rank": 9,
+      "base_model": "FNN",
+      "importance": 0.12207069914930344,
+      "importance_pct": 3.6846517170762394
+    },
+    {
+      "rank": 10,
+      "base_model": "Autoencoder",
+      "importance": 0.018925389698540317,
+      "importance_pct": 0.5712547739549951
+    },
+    {
+      "rank": 11,
+      "base_model": "LightGBM",
+      "importance": 0.0032044562512122524,
+      "importance_pct": 0.09672513806022785
+    }
+  ],
+  "visualizations_created": [
+    "shap_summary_plot.png",
+    "shap_feature_importance.png",
+    "feature_importance_rankings.csv",
+    "waterfall plots (5)",
+    "dependence plots (5)",
+    "force plots (3)",
+    "model_contribution_heatmap.png",
+    "model_contribution_analysis.csv"
+  ]
+}

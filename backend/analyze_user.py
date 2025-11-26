@@ -1,0 +1,55 @@
+from app.database import SessionLocal
+from app.models import User, Transaction
+
+db = SessionLocal()
+
+# Find john_doe
+user = db.query(User).filter(User.username == 'john_doe').first()
+
+if user:
+    print(f"User: {user.username} (ID: {user.id})")
+    print(f"Email: {user.email}")
+    print("=" * 80)
+    
+    # Get all transactions
+    txs = db.query(Transaction).filter(Transaction.user_id == user.id).order_by(Transaction.created_at.desc()).all()
+    
+    print(f"\nTotal Transactions: {len(txs)}")
+    print("\nRecent Transaction History:")
+    print("-" * 80)
+    
+    for i, tx in enumerate(txs[:15], 1):
+        time = tx.created_at.strftime("%Y-%m-%d %H:%M:%S") if tx.created_at else "N/A"
+        print(f"\n{i}. Transaction #{tx.id}")
+        print(f"   Amount: ${tx.amount:.2f}")
+        print(f"   Merchant: {tx.merchant_name}")
+        print(f"   Time: {time}")
+        print(f"   Device: {tx.device_info or 'N/A'}")
+        print(f"   Location: {tx.location or 'N/A'}")
+        print(f"   Classification: {tx.classification}")
+        print(f"   Risk Score: {tx.risk_score:.4f}")
+        print(f"   Status: {tx.status}")
+        
+    # Calculate statistics
+    if txs:
+        amounts = [tx.amount for tx in txs]
+        avg_amount = sum(amounts) / len(amounts)
+        max_amount = max(amounts)
+        min_amount = min(amounts)
+        
+        classifications = {}
+        for tx in txs:
+            classifications[tx.classification] = classifications.get(tx.classification, 0) + 1
+        
+        print("\n" + "=" * 80)
+        print("STATISTICS:")
+        print(f"Average Amount: ${avg_amount:.2f}")
+        print(f"Min Amount: ${min_amount:.2f}")
+        print(f"Max Amount: ${max_amount:.2f}")
+        print(f"\nClassifications:")
+        for cls, count in classifications.items():
+            print(f"  {cls}: {count}")
+else:
+    print("User 'john_doe' not found in database")
+
+db.close()
